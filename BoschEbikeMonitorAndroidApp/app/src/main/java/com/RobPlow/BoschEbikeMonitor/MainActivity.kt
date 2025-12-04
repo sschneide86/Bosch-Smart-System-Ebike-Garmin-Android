@@ -145,17 +145,17 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestBluetoothPermissions()
-        setContent {
-            BoschEBikeMonitorTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    MainScreen()
-                }
-            }
+
+        if (hasPermissions()) {
+            initializeBluetooth()
+            createNotificationChannel()
+            initializeGattServer()
+            startAdvertising()
+        } else {
+            requestBluetoothPermissions()
         }
+
+        setContent { BoschEBikeMonitorTheme { MainScreen() } }
     }
 
     @Composable
