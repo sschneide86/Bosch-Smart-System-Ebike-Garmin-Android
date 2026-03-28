@@ -17,18 +17,16 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
-    # Wir wechseln mit 'working-directory' in den richtigen Ordner
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-      working-directory: android 
+      working-directory: Android 
 
     - name: Build with Gradle
       run: ./gradlew assembleDebug
-      working-directory: android
+      working-directory: Android
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: app-debug
-        # Auch hier muss der Pfad angepasst werden
-        path: android/app/build/outputs/apk/debug/app-debug.apk
+        path: Android/app/build/outputs/apk/debug/app-debug.apk
